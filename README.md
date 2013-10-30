@@ -1,6 +1,7 @@
 # Capistrano::Recipes
+[![Gem Version](https://badge.fury.io/rb/j-cap-recipes.png)](http://badge.fury.io/rb/j-cap-recipes)
 
-TODO: Write a gem description
+A simple number of capistrano recipes to deploy rails application using Capistrano v3.
 
 ## Installation
 
