@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'capistrano-recipes', require: false, group: :development
+    gem 'j-cap-recipes', require: false, group: :development
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install capistrano-recipes
+    $ gem install j-cap-recipes
 
 ## Usage
 
