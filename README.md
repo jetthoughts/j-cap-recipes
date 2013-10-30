@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'capistrano-recipes'
+    gem 'capistrano-recipes', require: false, group: :development
 
 And then execute:
 
@@ -18,7 +18,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In the `Capfile` to include all recipes add:
+
+    require 'capistrano-recipes'
+
+If you want to load only specified recipe:
+
+    require 'capistrano-recipes/setup'
+    require 'capistrano-recipes/check'
+    require 'capistrano-recipes/nginx'
+    require 'capistrano-recipes/monit'
+    require 'capistrano-recipes/database'
+    require 'capistrano-recipes/delayed_job'
+    require 'capistrano-recipes/log'
+    require 'capistrano-recipes/rails'
+    require 'capistrano-recipes/unicorn'
 
 ## Contributing
 

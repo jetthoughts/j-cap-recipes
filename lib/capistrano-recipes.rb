@@ -1,6 +1,1 @@
-require "capistrano-recipes/version"
-
-module Capistrano
-  module Recipes
-  end
-end
+Dir.glob('lib/capistrano/tasks/*.rb').each { |r| require r }
