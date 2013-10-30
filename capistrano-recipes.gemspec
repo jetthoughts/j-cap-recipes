@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Capistrano::Recipes::VERSION
   spec.authors       = ["Michael Nikitochkin"]
   spec.email         = ["miry.sof@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{}
+  spec.summary       = %q{Capistrano 3 recipes for nginx, monit, rails log, setup, unicorn}
+  spec.homepage      = "https://github.com/jetthoughts/capistrano-recipes"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
