@@ -34,6 +34,11 @@ If you want to load only specified recipe:
     require 'capistrano-recipes/rails'
     require 'capistrano-recipes/unicorn'
 
+### Nginx
+### Setup
+### Check
+### Monit
+
 ## Contributing
 
 1. Fork it
