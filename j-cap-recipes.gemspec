@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'capistrano-recipes/version'
+require 'j-cap-recipes/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "j-cap-recipes"
-  spec.version       = Capistrano::Recipes::VERSION
+  spec.version       = JCap::Recipes::VERSION
   spec.authors       = ["Michael Nikitochkin"]
   spec.email         = ["miry.sof@gmail.com"]
   spec.description   = %q{}
   spec.summary       = %q{Capistrano 3 recipes for nginx, monit, rails log, setup, unicorn}
-  spec.homepage      = "https://github.com/jetthoughts/capistrano-recipes"
+  spec.homepage      = "https://github.com/jetthoughts/j-cap-recipes"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

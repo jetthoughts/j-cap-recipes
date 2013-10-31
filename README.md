@@ -21,19 +21,19 @@ Or install it yourself as:
 
 In the `Capfile` to include all recipes add:
 
-    require 'capistrano-recipes'
+    require 'j-cap-recipes'
 
 If you want to load only specified recipe:
 
-    require 'capistrano-recipes/setup'
-    require 'capistrano-recipes/check'
-    require 'capistrano-recipes/nginx'
-    require 'capistrano-recipes/monit'
-    require 'capistrano-recipes/database'
-    require 'capistrano-recipes/delayed_job'
-    require 'capistrano-recipes/log'
-    require 'capistrano-recipes/rails'
-    require 'capistrano-recipes/unicorn'
+    require 'j-cap-recipes/setup'
+    require 'j-cap-recipes/check'
+    require 'j-cap-recipes/nginx'
+    require 'j-cap-recipes/monit'
+    require 'j-cap-recipes/database'
+    require 'j-cap-recipes/delayed_job'
+    require 'j-cap-recipes/log'
+    require 'j-cap-recipes/rails'
+    require 'j-cap-recipes/unicorn'
 
 ### Nginx
 ### Setup
