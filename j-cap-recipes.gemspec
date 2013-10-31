@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = JCap::Recipes::VERSION
   spec.authors       = ["Michael Nikitochkin"]
   spec.email         = ["miry.sof@gmail.com"]
-  spec.description   = %q{}
+  spec.description   = %q{A litle knife to deploy Rails application}
   spec.summary       = %q{Capistrano 3 recipes for nginx, monit, rails log, setup, unicorn}
   spec.homepage      = "https://github.com/jetthoughts/j-cap-recipes"
   spec.license       = "MIT"
