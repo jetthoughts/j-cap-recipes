@@ -39,6 +39,10 @@ If you want to load only specified recipe:
 ### Setup
 ### Check
 ### Monit
+### Rails
+
+To run remote rails console you should update to the latest gems `capistrano-rbenv` and `capistrano-bundler`
+and run command `cap production rails:console`.
 
 ## Contributing
 
