@@ -1,5 +1,3 @@
-SSHKit.config.command_map[:rails] = "bundle exec rails"
-
 namespace :rails do
   desc 'Execute rails console'
   task :console do
@@ -24,24 +22,33 @@ module SSHKit
           ssh.open_channel do |chan|
             chan.request_pty if Netssh.config.pty
             chan.exec cmd.to_command do |ch, success|
-              chan.on_data do |ch, data|
-                cmd.stdout      = data
-                cmd.full_stdout += data
 
-                if data.include?('irb(main):')
-                  print data
-                  command = $stdin.gets
-                  command = "exit\n" if command == nil
-                  ch.send_data command
-                else
+              chan.on_data do |ch, data|
+                #Rails specific console handler
+                @row ||= ''
+                @row += data
+                if data.include?("\n")
+                  cmd.stdout      = @row
+                  cmd.full_stdout += @row
                   output << cmd
+                  @row = ''
+                else
+                  if data.include?('irb(main):')
+                    print data
+                    @row = ''
+                    command = $stdin.gets
+                    command = "exit\n" if command == nil
+                    ch.send_data command
+                  end
                 end
               end
+
               chan.on_extended_data do |ch, type, data|
                 cmd.stderr      = data
                 cmd.full_stderr += data
                 output << cmd
               end
+
               chan.on_request("exit-status") do |ch, data|
                 cmd.stdout      = ''
                 cmd.stderr      = ''
