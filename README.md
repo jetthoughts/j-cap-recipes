@@ -34,6 +34,7 @@ If you want to load only specified recipe:
     require 'j-cap-recipes/log'
     require 'j-cap-recipes/rails'
     require 'j-cap-recipes/unicorn'
+    require 'j-cap-recipes/honeybadger'
 
 ### Nginx
 ### Setup
@@ -43,6 +44,10 @@ If you want to load only specified recipe:
 
 To run remote rails console you should update to the latest gems `capistrano-rbenv` and `capistrano-bundler`
 and run command `cap production rails:console`.
+
+### Honeybadger
+
+`honeybadger:deploy` - notify the service about deploy and it would be invoked after `deploy:migrate`
 
 ## Contributing
 
