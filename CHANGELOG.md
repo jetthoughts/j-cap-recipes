@@ -3,6 +3,10 @@
 This file is written in reverse chronological order, newer releases will
 appear at the top.
 
+## 0.0.7
+
+* monkey patch SSHKit because capistrano wont to use blocks for execute.
+
 ## 0.0.6
 
 * Added deploy notifiction of the Honeybadger service.
