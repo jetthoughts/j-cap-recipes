@@ -73,7 +73,7 @@ file '/tmp/database.yml' do |t|
         <<: *base
   EOF
 
-  location = fetch(:template_dir, 'lib/capistrano/tasks/templates') + '/database.yml.erb'
+  location = fetch(:template_dir,  File.join(File.dirname(__FILE__), 'templates', 'database.yml.erb'))
   template = File.file?(location) ? File.read(location) : default_template
 
   config = ERB.new(template)
