@@ -45,6 +45,38 @@ If you want to load only specified recipe:
 To run remote rails console you should update to the latest gems `capistrano-rbenv` and `capistrano-bundler`
 and run command `cap production rails:console`.
 
+To setup a custom `database.yml` config you should provide the directory of the templates
+
+```ruby
+set :template_dir, `config/deploy/templates`
+```
+
+After you should create a file `database.yml.erb` example:
+
+```yaml
+# store your custom template at foo/bar/database.yml.erb `set :template_dir, "foo/bar"`
+#
+# example of database template
+
+base: &base
+  adapter: postgresql
+  encoding: unicode
+  timeout: 5000
+  username: deployer
+  password: <%#= ask(:db_password, SecureRandom.base64(6)) && fetch(:db_password) %>
+  host: localhost
+ port: 5432
+
+test:
+  database: <%= fetch(:application) %>_test
+  <<: *base
+
+<%= fetch(:rails_env).to_s %>:
+  database: <%= fetch(:application) %>_<%= fetch(:rails_env).to_s %>
+  <<: *base
+
+```
+
 ### Honeybadger
 
 `honeybadger:deploy` - notify the service about deploy and it would be invoked after `deploy:migrate`
