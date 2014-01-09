@@ -1,6 +1,3 @@
-after 'deploy', 'honeybadger:deploy'
-after 'deploy:migrate', 'honeybadger:deploy'
-
 namespace :honeybadger do
   desc <<-DESC
             Notify Honeybadger of the deployment by running the notification on the REMOTE machine.
@@ -36,3 +33,6 @@ namespace :honeybadger do
     end
   end
 end
+
+after 'deploy', 'honeybadger:deploy'
+after 'deploy:migrate', 'honeybadger:deploy'
