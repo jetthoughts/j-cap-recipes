@@ -1,3 +1,9 @@
-rake_files_pattern =  File.expand_path("./j-cap-recipes/tasks/*.rake", File.dirname(__FILE__))
-Dir.glob(rake_files_pattern).each { |r| import r }
 require_relative 'j-cap-recipes/rails'
+require_relative 'j-cap-recipes/database'
+require_relative 'j-cap-recipes/check'
+require_relative 'j-cap-recipes/delayed_job'
+require_relative 'j-cap-recipes/monit'
+require_relative 'j-cap-recipes/nginx'
+require_relative 'j-cap-recipes/rake'
+require_relative 'j-cap-recipes/setup'
+require_relative 'j-cap-recipes/unicorn'

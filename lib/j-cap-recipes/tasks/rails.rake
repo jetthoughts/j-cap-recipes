@@ -4,19 +4,28 @@ namespace :rails do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          row , command = '', ''
+          row , command = '', nil
           execute(:rails, :console) do |ch, data|
             row += data
-            if data.include?("\n")
-              print row if command.chomp != row.chomp
-              row = ''
-            elsif data.include?('irb(main):')
+            if command && row.include?(command)
+              row.sub!(/#{command}(\r\n)?/, '')
+              command = nil
+            end
+
+            if row.include?('irb(main):')
               print row
               row     = ''
               command = $stdin.gets
               command = "exit\n" if command == nil
               ch.send_data command
+              command.chomp!
             end
+
+            if row.include?("\n")
+              print row
+              row = ''
+            end
+
           end
         end
       end
