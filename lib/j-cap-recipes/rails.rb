@@ -15,6 +15,7 @@ module SSHKit
             chan.exec cmd.to_command do |ch, success|
               chan.on_data do |ch, data|
                 if block_given?
+                  cmd.stdout = data
                   block.call(ch, data)
                 else
                   cmd.stdout      = data
@@ -23,13 +24,13 @@ module SSHKit
                 end
               end
               chan.on_extended_data do |ch, type, data|
-                cmd.stderr      = data
+                cmd.stderr = data
                 cmd.full_stderr += data
                 output << cmd
               end
               chan.on_request("exit-status") do |ch, data|
-                cmd.stdout      = ''
-                cmd.stderr      = ''
+                cmd.stdout = ''
+                cmd.stderr = ''
                 cmd.exit_status = data.read_long
                 output << cmd
               end
@@ -61,6 +62,4 @@ module SSHKit
   end
 end
 
-
-
-load File.expand_path("../tasks/rails.rake", __FILE__)
+load File.expand_path('../tasks/rails.rake', __FILE__)
