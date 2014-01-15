@@ -1,7 +1,15 @@
 ## Changelog
 
-This file is written in reverse chronological order, newer releases will
-appear at the top.
+## 0.0.11
+
+* Added support to manage https://github.com/bigbinary/handy config settings files.
+* Added recipe to tag the deployed branch with tags
+
+## 0.0.10
+
+## 0.0.9
+
+## 0.0.8
 
 ## 0.0.7
 

@@ -81,6 +81,16 @@ test:
 
 `honeybadger:deploy` - notify the service about deploy and it would be invoked after `deploy:migrate`
 
+## Handy
+
+Support to manage https://github.com/bigbinary/handy config files. First should add `require 'j-cap-recipes/handy'` to `Capfile`.
+There are three tasks available:
+
+
+- `cap staging config:settings` Show the current staging config files;
+- `cap staging config:settings:delete` Remove the custom env settings file;
+- `cap staging config:settings:upload` Update the remote config file with local one;
+
 ## Contributing
 
 1. Fork it
