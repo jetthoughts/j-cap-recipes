@@ -3,7 +3,7 @@
 ## 0.0.11
 
 * Added support to manage https://github.com/bigbinary/handy config settings files.
-* Added recipe to tag the deployed branch with tags
+* Added recipe to git tag the deployed branch
 
 ## 0.0.10
 

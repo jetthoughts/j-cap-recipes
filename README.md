@@ -81,7 +81,7 @@ test:
 
 `honeybadger:deploy` - notify the service about deploy and it would be invoked after `deploy:migrate`
 
-## Handy
+### Handy
 
 Support to manage https://github.com/bigbinary/handy config files. First should add `require 'j-cap-recipes/handy'` to `Capfile`.
 There are three tasks available:
@@ -90,6 +90,16 @@ There are three tasks available:
 - `cap staging config:settings` Show the current staging config files;
 - `cap staging config:settings:delete` Remove the custom env settings file;
 - `cap staging config:settings:upload` Update the remote config file with local one;
+
+### Git
+
+- `cap staging git:release:tag` Create tag in local repo by variable `git_tag_name`
+ Example of usage in your `deploy.rb`:
+
+```ruby
+set :git_tag_name, proc { Time.now.to_s.gsub(/[\s\+]+/, '_') }
+after 'deploy:finished', 'git:release:tag'
+```
 
 ## Contributing
 
