@@ -93,6 +93,7 @@ There are three tasks available:
 
 ### Git
 
+First should add `require 'j-cap-recipes/git'` to `Capfile`.
 - `cap staging git:release:tag` Create tag in local repo by variable `git_tag_name`
  Example of usage in your `deploy.rb`:
 
