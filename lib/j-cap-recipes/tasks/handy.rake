@@ -4,7 +4,7 @@ namespace :config do
 
   namespace :settings do
     desc 'Update the remote config/settings/<stage>.yml file with local'
-    task :upload do
+    task upload: :delete do
       invoke "config/settings/#{fetch(:stage)}.yml"
     end
 
