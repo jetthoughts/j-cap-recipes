@@ -20,7 +20,7 @@ namespace :config do
     desc 'Show current settings'
     task :show do
       on roles(:all) do |host|
-        within shared_path do
+        within current_path do
           execute :cat, 'config/settings.yml', "config/settings/#{fetch(:stage)}.yml"
         end
       end
