@@ -102,6 +102,19 @@ set :git_tag_name, proc { Time.now.to_s.gsub(/[\s\+]+/, '_') }
 after 'deploy:finished', 'git:release:tag'
 ```
 
+### Files
+
+Add 'j-cap-recipes/git'` to `Capfile`.
+And now you have task to download any remote file to local via:
+`bundle exec cap staging "files:download[config/database.yml]"`.
+You will find `download.tar` file in current directory with `config/database.yml`.
+
+To download all share folder use:
+`bundle exec cap staging "files:download[.]"`
+
+To extract the archive `tar -xvf download.tar -C tmp`
+
+
 ## Contributing
 
 1. Fork it
