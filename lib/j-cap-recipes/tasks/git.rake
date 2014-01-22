@@ -4,9 +4,11 @@ namespace :git do
     task :tag do
       version_number = fetch(:git_tag_name) { release_timestamp }
       tag_name       = "#{fetch(:stage)}-#{version_number}"
-      system("git tag -a -m \"Version #{tag_name} released\" '#{tag_name}'") &&
-        (puts "Created tag `#{tag_name}`") &&
-          `git push --tags`
+      branch         = fetch(:branch, '')
+      branch
+      system("git tag -a -m \"Version #{tag_name} released\" '#{tag_name}' #{branch}") &&
+        `git push --tags` &&
+          (puts "Created tag `#{tag_name}`")
     end
   end
 end
