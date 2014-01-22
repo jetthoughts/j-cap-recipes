@@ -1,5 +1,13 @@
 ## Changelog
 
+## 0.0.12
+
+* Updated recipe git to update remote with new tags.
+* Remove the old settings before upload a new one.
+* Added files recipes to dowload remote files. Use `current` folder to search settings.
+* Use capistrano method to get revison timestamp for git tagging.
+
+
 ## 0.0.11
 
 * Added support to manage https://github.com/bigbinary/handy config settings files.
