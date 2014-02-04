@@ -44,6 +44,7 @@ namespace :db do
   task :dump_download do
     on primary fetch(:migration_role) do
       within release_path do
+        FileUtils.mkdir_p 'db/backups'
         bakup_file = "db/backups/#{fetch(:application)}_#{fetch(:rails_env).to_s}_latest.dump"
         download! "#{shared_path}/#{bakup_file}", bakup_file
       end
