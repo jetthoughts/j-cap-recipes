@@ -35,6 +35,7 @@ If you want to load only specified recipe:
     require 'j-cap-recipes/rails'
     require 'j-cap-recipes/unicorn'
     require 'j-cap-recipes/honeybadger'
+    require 'j-cap-recipes/airbrake'
 
 ### Nginx
 ### Setup
@@ -114,6 +115,16 @@ To download all share folder use:
 
 To extract the archive `tar -xvf download.tar -C tmp`
 
+### Airbrake
+
+Add 'j-cap-recipes/airbrake'` to `Capfile`. The original version capistrano task to notify airbrake service support only
+Capistrano version 2. Migrate the task to support version 3.
+
+To send Airbrake deploy notification, you should also add hook to `deploy.rb`
+
+```ruby
+after 'deploy:finishing', 'airbrake:deploy'
+```
 
 ## Contributing
 
