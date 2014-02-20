@@ -126,6 +126,8 @@ To send Airbrake deploy notification, you should also add hook to `deploy.rb`
 after 'deploy:finishing', 'airbrake:deploy'
 ```
 
+You can change the default api key using `ENV['API_KEY']`.
+
 ## Contributing
 
 1. Fork it

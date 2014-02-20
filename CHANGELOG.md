@@ -1,5 +1,11 @@
 ## Changelog
 
+## 0.0.14
+
+* Added airbrake deploy notification task.
+
+## 0.0.13
+
 ## 0.0.12
 
 * Updated recipe git to update remote with new tags.
