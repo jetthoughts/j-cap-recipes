@@ -95,6 +95,7 @@ There are three tasks available:
 - `cap staging config:settings` Show the current staging config files;
 - `cap staging config:settings:delete` Remove the custom env settings file;
 - `cap staging config:settings:upload` Update the remote config file with local one;
+- `cap staging config:settings:get` Download the rmote config file to local one
 
 ### Git
 

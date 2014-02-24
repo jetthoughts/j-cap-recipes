@@ -6,6 +6,7 @@
 * Added rails rake task to create datbase backup and restore. You can check `rake -T`
 * Optimized to run rails console task via SshCommand backend
 * Added a new task `rails:less_log` to show the current log file via `less`
+* Update Handy with a new task `config:settings:get` to download remote stage config to local folder.
 
 ## 0.0.14
 

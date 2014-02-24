@@ -20,9 +20,19 @@ namespace :config do
     desc 'Show current settings'
     task :show do
       on roles(:all) do |host|
-        within current_path do
-          execute :cat, 'config/settings.yml', "config/settings/#{fetch(:stage)}.yml"
+        within current_path.join('config') do
+          execute :cat, 'settings.yml'
+          execute :cat, "settings/#{fetch(:stage)}.yml"
         end
+      end
+    end
+
+    desc 'Show current settings'
+    task :get do
+      on roles(:all) do |host|
+        local_dir = File.join(Dir.pwd, 'config', 'settings')
+        FileUtils.mkdir_p local_dir
+        download! current_path.join('config', 'settings', "#{fetch(:stage)}.yml"), local_dir
       end
     end
   end
