@@ -5,8 +5,13 @@ module SSHKit
         _execute(*args, &block).success?
       end
 
+      def command_string(args, &block)
+        'ssh %s@%s -t "%s"' % [host.username, String(host.hostname), command(*args).to_command]
+      end
+
       private
       def _execute(*args, &block)
+
         command(*args).tap do |cmd|
           output << cmd
           cmd.started = true
