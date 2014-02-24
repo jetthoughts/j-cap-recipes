@@ -9,4 +9,14 @@ namespace :rails do
       end
     end
   end
+
+  desc 'Execute less on current env log file'
+  task :less_log do
+    on roles(:app), in: :parallel, backend: :ssh_command do |*args|
+      within current_path.join('log') do
+        execute(:less, '-R', fetch(:rails_env)+'.log')
+      end
+    end
+  end
+
 end

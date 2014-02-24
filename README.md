@@ -132,6 +132,45 @@ after 'deploy:finishing', 'airbrake:deploy'
 
 You can change the default api key using `ENV['API_KEY']`.
 
+
+### Rake tasks
+
+Added utility rake task to create database backup for postgresql and rails.
+
+### SSHKit addon
+
+`SSHKit::Backend::SshCommand` a new backend to invoke the ssh command using sytem command `ssh`.
+Now you can easy to execute interactive applications with similar changes. Example:
+
+```ruby
+namespace :rails do
+  desc 'Execute rails console'
+  task :console do
+    on roles(:app), in: :parallel, backend: :ssh_command do |*args|
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute(:rails, :console)
+        end
+      end
+    end
+  end
+end
+```
+
+And you have a easy and fast way to run remote interactive rails console via command `cap production rails:console`.
+
+```ruby
+task :less_log do
+  on roles(:app), in: :parallel, backend: :ssh_command do |*args|
+    within current_path.join('log') do
+      execute(:less, '-R', fetch(:rails_env)+'.log')
+    end
+  end
+end
+```
+
+And you have way to look to logs `cap production less_log`.
+
 ## Contributing
 
 1. Fork it
@@ -139,7 +178,3 @@ You can change the default api key using `ENV['API_KEY']`.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jetthoughts/j-cap-recipes/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-

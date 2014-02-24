@@ -1,5 +1,12 @@
 ## Changelog
 
+## 0.0.15
+
+* Added new SSHKit backend called SshCommand. It adds support to run interactive commands, example like `rails console`.
+* Added rails rake task to create datbase backup and restore. You can check `rake -T`
+* Optimized to run rails console task via SshCommand backend
+* Added a new task `rails:less_log` to show the current log file via `less`
+
 ## 0.0.14
 
 * Added airbrake deploy notification task.
