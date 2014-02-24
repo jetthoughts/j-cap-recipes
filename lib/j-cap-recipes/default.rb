@@ -1,0 +1,8 @@
+require 'j-cap-recipes/database'
+require 'j-cap-recipes/check'
+require 'j-cap-recipes/delayed_job'
+require 'j-cap-recipes/monit'
+require 'j-cap-recipes/nginx'
+require 'j-cap-recipes/rake'
+require 'j-cap-recipes/setup'
+require 'j-cap-recipes/unicorn'
