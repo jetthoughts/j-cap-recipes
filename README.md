@@ -7,7 +7,7 @@ A simple number of capistrano recipes to deploy rails application using Capistra
 
 Add this line to your application's Gemfile:
 
-    gem 'j-cap-recipes', require: false, group: :development
+    gem 'j-cap-recipes', group: :development
 
 And then execute:
 
@@ -21,7 +21,7 @@ Or install it yourself as:
 
 In the `Capfile` to include all recipes add:
 
-    require 'j-cap-recipes'
+    require 'j-cap-recipes/default'
 
 If you want to load only specified recipe:
 
@@ -36,6 +36,10 @@ If you want to load only specified recipe:
     require 'j-cap-recipes/unicorn'
     require 'j-cap-recipes/honeybadger'
     require 'j-cap-recipes/airbrake'
+
+Also you need to include rake tasks in your `Rakefile`:
+
+    require 'j-cap-recipes'
 
 ### Nginx
 ### Setup

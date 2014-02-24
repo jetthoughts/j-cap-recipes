@@ -1,9 +1,2 @@
-require_relative 'j-cap-recipes/rails'
-require_relative 'j-cap-recipes/database'
-require_relative 'j-cap-recipes/check'
-require_relative 'j-cap-recipes/delayed_job'
-require_relative 'j-cap-recipes/monit'
-require_relative 'j-cap-recipes/nginx'
-require_relative 'j-cap-recipes/rake'
-require_relative 'j-cap-recipes/setup'
-require_relative 'j-cap-recipes/unicorn'
+require_relative 'j-cap-recipes/version'
+require_relative 'j-cap-recipes/railtie' if defined?(Rails)
