@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.0.16
+
+* Added handy task to remote edit settings file.
+
 ## 0.0.15
 
 * Added new SSHKit backend called SshCommand. It adds support to run interactive commands, example like `rails console`.

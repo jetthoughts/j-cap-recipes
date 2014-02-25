@@ -35,6 +35,13 @@ namespace :config do
         download! current_path.join('config', 'settings', "#{fetch(:stage)}.yml"), local_dir
       end
     end
+
+    desc 'Edit remote settings'
+    task :edit do
+      on roles(:app), backend: :ssh_command do |*args|
+        execute(:vi, current_path.join('config', 'settings', "#{fetch(:stage)}.yml"))
+      end
+    end
   end
 
 end
