@@ -39,7 +39,7 @@ namespace :config do
     desc 'Edit remote settings'
     task :edit do
       on roles(:app), backend: :ssh_command do |*args|
-        execute(:vi, current_path.join('config', 'settings', "#{fetch(:stage)}.yml"))
+        execute('\"\${EDITOR:-vi}\"', current_path.join('config', 'settings', "#{fetch(:stage)}.yml"))
       end
     end
   end
