@@ -89,7 +89,7 @@ test:
 ### Settings
 
 Support to manage https://github.com/bigbinary/handy config files. First should add `require 'j-cap-recipes/settings'` to `Capfile`.
-There are three tasks available:
+There are tasks available:
 
 - `cap staging config:settings` Show the current staging config files;
 - `cap staging config:settings:delete` Remove the custom env settings file;
