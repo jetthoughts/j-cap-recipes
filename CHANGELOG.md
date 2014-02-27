@@ -3,6 +3,8 @@
 ## 0.0.16
 
 * Added handy task to remote edit settings file.
+* Renamed handy to settings recipes
+* Updated settings to run default editor instead of only `vi`
 
 ## 0.0.15
 
