@@ -9,7 +9,7 @@
 ## 0.0.15
 
 * Added new SSHKit backend called SshCommand. It adds support to run interactive commands, example like `rails console`.
-* Added rails rake task to create datbase backup and restore. You can check `rake -T`
+* Added rails rake task to create database backup and restore. You can check `rake -T`
 * Optimized to run rails console task via SshCommand backend
 * Added a new task `rails:less_log` to show the current log file via `less`
 * Update Handy with a new task `config:settings:get` to download remote stage config to local folder.
@@ -24,8 +24,8 @@
 
 * Updated recipe git to update remote with new tags.
 * Remove the old settings before upload a new one.
-* Added files recipes to dowload remote files. Use `current` folder to search settings.
-* Use capistrano method to get revison timestamp for git tagging.
+* Added files recipes to download remote files. Use `current` folder to search settings.
+* Use capistrano method to get revision timestamp for git tagging.
 
 
 ## 0.0.11
@@ -45,7 +45,7 @@
 
 ## 0.0.6
 
-* Added deploy notifiction of the Honeybadger service.
+* Added deploy notification of the Honeybadger service.
 
 ## 0.0.5
 
