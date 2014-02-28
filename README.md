@@ -140,7 +140,7 @@ Added utility rake task to create database backup for postgresql and rails.
 
 ### SSHKit addon
 
-`SSHKit::Backend::SshCommand` a new backend to invoke the ssh command using sytem command `ssh`.
+`SSHKit::Backend::SshCommand` a new backend to invoke the ssh command using system command `ssh`.
 Now you can easy to execute interactive applications with similar changes. Example:
 
 ```ruby

@@ -46,7 +46,7 @@ namespace :db do
       within release_path do
         FileUtils.mkdir_p 'db/backups'
         bakup_file = "db/backups/#{fetch(:application)}_#{fetch(:rails_env).to_s}_latest.dump"
-        download! "#{shared_path}/#{bakup_file}", bakup_file
+        download! "#{release_path}/#{bakup_file}", bakup_file
       end
     end
   end
