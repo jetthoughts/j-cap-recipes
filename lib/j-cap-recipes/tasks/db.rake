@@ -51,7 +51,7 @@ ps xa \
   | grep #{database_name} \
   | grep -v grep \
   | awk '{print $1}' \
-  | xargs kill
+  | xargs kill || true
 EOF
     sh command
   end

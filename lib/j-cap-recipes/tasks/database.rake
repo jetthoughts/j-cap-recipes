@@ -51,6 +51,18 @@ namespace :db do
     end
   end
 
+  desc 'Downlaod to local machine the latest backup'
+  task :dump_upload do
+    on primary fetch(:migration_role) do
+      within release_path do
+        FileUtils.mkdir_p 'db/backups'
+        bakup_file = "db/backups/#{fetch(:application)}_#{fetch(:rails_env).to_s}_latest.dump"
+        upload! bakup_file, "#{release_path}/#{bakup_file}"
+      end
+    end
+  end
+
+
 end
 
 remote_file 'config/database.yml' => '/tmp/database.yml', roles: :app

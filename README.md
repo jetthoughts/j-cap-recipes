@@ -45,6 +45,16 @@ Also you need to include rake tasks in your `Rakefile`:
 ### Setup
 ### Check
 ### Monit
+
+### Database recipes
+
+ `cap production db:create`
+ `cap production db:backup`
+ `cap production db:dump_download`
+ `cap production db:dump_upload`
+ `cap production db:restore`
+
+
 ### Rails
 
 To run remote rails console you should update to the latest gems `capistrano-rbenv` and `capistrano-bundler`
