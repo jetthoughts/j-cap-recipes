@@ -61,6 +61,7 @@ end
 def postgres_command_options(str, config)
   str += " -h #{config[:hostname]}" if config[:hostname].present?
   str += " -U #{config[:username]}" if config[:username].present?
+  str += ' -O -c'
   str
 end
 
