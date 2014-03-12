@@ -40,28 +40,29 @@ namespace :db do
     end
   end
 
-  desc 'Downlaod to local machine the latest backup'
-  task :dump_download do
+  desc 'Download to local machine the latest backup'
+  task :dump_download, :env_name do |task, args|
     on primary fetch(:migration_role) do
       within release_path do
         FileUtils.mkdir_p 'db/backups'
-        bakup_file = "db/backups/#{fetch(:application)}_#{fetch(:rails_env).to_s}_latest.dump"
-        download! "#{release_path}/#{bakup_file}", bakup_file
+        env_name = args[:env_name] || fetch(:rails_env).to_s
+        backup_file = "db/backups/#{fetch(:application)}_#{env_name}_latest.dump"
+        download! "#{release_path}/#{backup_file}", backup_file
       end
     end
   end
 
-  desc 'Downlaod to local machine the latest backup'
-  task :dump_upload do
+  desc 'Download to local machine the latest backup'
+  task :dump_upload, :env_name do |task, args|
     on primary fetch(:migration_role) do
       within release_path do
         FileUtils.mkdir_p 'db/backups'
-        bakup_file = "db/backups/#{fetch(:application)}_#{fetch(:rails_env).to_s}_latest.dump"
-        upload! bakup_file, "#{release_path}/#{bakup_file}"
+        env_name = args[:env_name] || fetch(:rails_env).to_s
+        backup_file = "db/backups/#{fetch(:application)}_#{env_name}_latest.dump"
+        upload! backup_file, "#{release_path}/#{backup_file}"
       end
     end
   end
-
 
 end
 

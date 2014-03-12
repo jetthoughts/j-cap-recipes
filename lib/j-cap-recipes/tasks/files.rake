@@ -1,5 +1,5 @@
 namespace :files do
-  desc 'Downlaod remote shared files to local machine.'
+  desc 'Download remote shared files to local machine.'
   task :download, :path do |task, args|
 
     if args[:path].nil?

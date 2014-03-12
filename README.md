@@ -51,7 +51,9 @@ Also you need to include rake tasks in your `Rakefile`:
  `cap production db:create`
  `cap production db:backup`
  `cap production db:dump_download`
+ `cap production db:dump_download[rails_env]` - Download the file that located in `<current>/db/backups/<application>_<rails_env>_latest.dump`
  `cap production db:dump_upload`
+ `cap production db:dump_upload[rails_env]` - Upload the file `<current>/db/backups/<application>_<rails_env>_latest.dump` to remote host
  `cap production db:restore`
 
 
