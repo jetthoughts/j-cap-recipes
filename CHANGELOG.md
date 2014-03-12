@@ -3,6 +3,7 @@
 ## 0.0.17
 
 * Added ability to define what the env to download or upload for database backups. If it differs from the rails env.
+* Added task to update the version with current revision and deploy timestamp.
 
 ## 0.0.16
 

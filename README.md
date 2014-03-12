@@ -109,6 +109,15 @@ There are tasks available:
 - `cap staging config:settings:get` Download the remote config file to local one
 - `cap staging config:settings:edit` Direct editing of the settings file
 
+### Update VERSION file with build number
+
+Task `deploy:update_version` adds to end of line the `:build_number` string. You may set it to:
+
+```ruby
+set :build_number, proc { [fetch(:current_revision), Time.now.strftime("%Y%m%d"), ].compact.join('-') }
+set :version_filename, 'VERSION'
+```
+
 ### Git
 
 First should add `require 'j-cap-recipes/git'` to `Capfile`.
