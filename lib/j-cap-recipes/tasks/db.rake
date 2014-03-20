@@ -44,16 +44,14 @@ namespace :db do
   end
 
   task :kill_postgres_connections => :environment do
-    database_name = ActiveRecord::Base.connection.current_database
-    command = <<EOF
-ps xa \
-  | grep postgres: \
-  | grep #{database_name} \
-  | grep -v grep \
-  | awk '{print $1}' \
-  | xargs -r kill || true
-EOF
-    sh command
+    db_name = ActiveRecord::Base.connection.current_database
+    kill_query = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '#{db_name}';"
+    begin
+      ActiveRecord::Base.connection.exec_query kill_query
+    rescue ActiveRecord::StatementInvalid => ex
+      puts "All connections to #{db_name} were killed successfully!"
+      puts "Database message: #{ex.message}"
+    end
   end
 
 end
