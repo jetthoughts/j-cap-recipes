@@ -11,4 +11,15 @@ namespace :git do
           (puts "Created tag `#{tag_name}`")
     end
   end
+
+  desc 'Updates repository url'
+  task :update_repo_url do
+    on release_roles :all do
+      within repo_path  do
+        with fetch(:git_environmental_variables) do
+          execute :git, :remote, 'set-url', 'origin', fetch(:repo_url)
+        end
+      end
+    end
+  end
 end
