@@ -46,7 +46,9 @@ namespace :db do
       within release_path do
         FileUtils.mkdir_p 'db/backups'
         env_name = args[:env_name] || fetch(:rails_env).to_s
-        backup_file = "db/backups/#{fetch(:application)}_#{env_name}_latest.dump"
+        database_config_content = read_remote_database_config
+        database_name = JCap::Recipes::Util.database_name(env_name, database_config_content)
+        backup_file = "db/backups/#{database_name}_latest.dump"
         download! "#{release_path}/#{backup_file}", backup_file
       end
     end
@@ -58,7 +60,9 @@ namespace :db do
       within release_path do
         FileUtils.mkdir_p 'db/backups'
         env_name = args[:env_name] || fetch(:rails_env).to_s
-        backup_file = "db/backups/#{fetch(:application)}_#{env_name}_latest.dump"
+        database_config_content = read_remote_database_config
+        database_name = JCap::Recipes::Util.database_name(env_name, database_config_content)
+        backup_file = "db/backups/#{database_name}_latest.dump"
         upload! backup_file, "#{release_path}/#{backup_file}"
       end
     end
@@ -94,4 +98,8 @@ file '/tmp/database.yml' do |t|
   File.open t.name, 'w' do |f|
     f.puts config.result(binding)
   end
+end
+
+def read_remote_database_config(path = 'config/database.yml')
+  capture :cat, path
 end
