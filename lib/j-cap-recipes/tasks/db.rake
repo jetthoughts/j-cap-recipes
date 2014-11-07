@@ -13,18 +13,13 @@ namespace :db do
     backup_file   = File.join(backup_dir, "#{database_name}_#{datestamp}.dump")
 
     #dump the backup and zip it up
-    dump_command  = "pg_dump #{database_name} -w -F c"
-    dump_command  += " -h #{config[:hostname]}" if config[:hostname].present?
-    dump_command  += " -U #{config[:username]}" if config[:username].present?
-    dump_command  += " > #{backup_file}"
+    dump_command  = "#{postgres_password(config)} pg_dump #{database_name} -w -F c"
+    dump_command += postgres_auth_options(config)
+    dump_command += " > #{backup_file}"
 
     sh dump_command
 
     safe_ln backup_file, File.join(backup_dir, "#{database_name}_latest.dump")
-
-    #send_to_amazon backup_file
-    #remove the file on completion so we don't clog up our app
-    #File.delete backup_file
   end
 
   desc 'PG restore from the last backup file'
@@ -38,8 +33,9 @@ namespace :db do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
 
-    restore_command = "pg_restore -d #{database_name} -F c -w #{backup_file}"
-    restore_command = postgres_command_options restore_command, config
+    restore_command = "#{postgres_password(config)} pg_restore -d #{database_name} -F c -w #{backup_file}"
+    restore_command += postgres_auth_options(config)
+    restore_command += ' -O -c'
     sh "#{restore_command} || echo 'done'"
   end
 
@@ -56,11 +52,15 @@ namespace :db do
 
 end
 
-def postgres_command_options(str, config)
-  str += " -h #{config[:hostname]}" if config[:hostname].present?
-  str += " -U #{config[:username]}" if config[:username].present?
-  str += ' -O -c'
-  str
+def postgres_password(config)
+  "PGPASSWORD='#{config[:password]}'" if config[:password].present?
+end
+
+def postgres_auth_options(config)
+  command_options = ''
+  command_options += " -h #{config[:hostname]}" if config[:hostname].present?
+  command_options += " -U #{config[:username]}" if config[:username].present?
+  command_options
 end
 
 #TODO: Use setting to get S3 credentials
