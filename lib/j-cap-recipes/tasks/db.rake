@@ -23,15 +23,15 @@ namespace :db do
   end
 
   desc 'PG restore from the last backup file'
-  task restore: [:environment, :load_config] do
+  task restore: ['db:create', :environment, :load_config] do
     config        = ActiveRecord::Base.connection_config
     database_name = ActiveRecord::Base.connection.current_database
     backup_dir    = ENV['backup-path'] || Rails.root.join('db', 'backups')
     backup_file   = File.join(backup_dir, "#{database_name}_latest.dump")
 
-    Rake::Task['db:kill_postgres_connections'].invoke
-    Rake::Task['db:drop'].invoke
-    Rake::Task['db:create'].invoke
+    execute_task!('db:kill_postgres_connections')
+    execute_task!('db:drop')
+    execute_task!('db:create')
 
     restore_command = "#{postgres_password(config)} pg_restore -d #{database_name} -F c -w #{backup_file}"
     restore_command += postgres_auth_options(config)
@@ -81,4 +81,9 @@ def send_to_amazon(file_path)
   AWS::S3::Base.establish_connection!(:access_key_id => 'YOUR KEY', :secret_access_key => 'YOUR SECRET')
   #push the file up
   AWS::S3::S3Object.store(file_name, File.open(file_path), bucket)
+end
+
+def execute_task!(task_name)
+  Rake::Task[task_name].reenable
+  Rake::Task[task_name].invoke
 end
