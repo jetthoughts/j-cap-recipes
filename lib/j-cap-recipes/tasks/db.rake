@@ -41,9 +41,20 @@ namespace :db do
 
   task :kill_postgres_connections => :environment do
     db_name = ActiveRecord::Base.connection.current_database
-    kill_query = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '#{db_name}';"
+    pid_column_name = if ActiveRecord::Base.connection.send(:postgresql_version) > 90200
+      'pid'
+    else
+      'procpid'
+    end
+
+    kill_query = <<-QUERY
+      SELECT pg_terminate_backend(#{pid_column_name})
+      FROM pg_stat_activity
+      WHERE datname = '#{db_name}';
+    QUERY
+
     begin
-      ActiveRecord::Base.connection.exec_query kill_query
+      ActiveRecord::Base.connection.exec_query(kill_query)
     rescue ActiveRecord::StatementInvalid => ex
       puts "All connections to #{db_name} were killed successfully!"
       puts "Database message: #{ex.message}"
