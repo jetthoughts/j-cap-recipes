@@ -2,10 +2,10 @@ namespace :db do
   desc 'PG backup'
   task backup: [:environment, :load_config] do
     #stamp the filename
-    datestamp  = Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+    dateformat = ENV['date-format'] || '%Y-%m-%d_%H-%M-%S'
+    datestamp  = Time.now.strftime(dateformat)
 
     #create backups folder
-    backup_dir = ENV['backup-path'] || Rails.root.join('db', 'backups')
     mkdir_p(backup_dir)
 
     config        = ActiveRecord::Base.connection_config
@@ -19,7 +19,11 @@ namespace :db do
 
     sh dump_command
 
-    safe_ln backup_file, File.join(backup_dir, "#{database_name}_latest.dump")
+    latest_file_name = File.join(backup_dir, "#{database_name}_latest.dump")
+    if File.exist? latest_file_name
+      rm latest_file_name
+    end
+    safe_ln backup_file, latest_file_name
   end
 
   desc 'PG restore from the last backup file'
@@ -61,17 +65,41 @@ namespace :db do
     end
   end
 
-end
+  desc 'Clean up old dumps'
+  task :cleanup do
+    dumps = FileList.new(File.join(backup_dir, '*.dump')).exclude(/_latest.dump$/)
 
-def postgres_password(config)
-  "PGPASSWORD='#{config[:password]}'" if config[:password].present?
-end
+    if keep_versions > 0 && dumps.count >= keep_versions
+      puts "Keep #{keep_versions} dumps"
+      files = (dumps - dumps.last(keep_versions))
+      if files.any?
+        files.each do |f|
+          rm_r f
+        end
+      end
+    end
 
-def postgres_auth_options(config)
-  command_options = ''
-  command_options += " -h #{config[:hostname]}" if config[:hostname].present?
-  command_options += " -U #{config[:username]}" if config[:username].present?
-  command_options
+  end
+
+  def backup_dir
+    @_backup_dir ||= ENV['backup-path'] || Rails.root.join('db', 'backups')
+  end
+
+  def keep_versions
+    @_keep_versions ||= ENV['ROTATE'].to_i
+  end
+
+  def postgres_password(config)
+    "PGPASSWORD='#{config[:password]}'" if config[:password].present?
+  end
+
+  def postgres_auth_options(config)
+    command_options = ''
+    command_options += " -h #{config[:hostname]}" if config[:hostname].present?
+    command_options += " -U #{config[:username]}" if config[:username].present?
+    command_options
+  end
+
 end
 
 #TODO: Use setting to get S3 credentials
