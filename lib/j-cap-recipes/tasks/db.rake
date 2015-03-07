@@ -120,7 +120,7 @@ namespace :db do
   def mysql_auth_options(config)
     command_options = ''
     command_options += "--password='#{config[:password]}'" if config[:password].present?
-    command_options += " -h #{config[:hostname]}" if config[:hostname].present?
+    command_options += " -h #{config[:host]}" if config[:host].present?
     command_options += " -u #{config[:username]}" if config[:username].present?
     command_options
   end
