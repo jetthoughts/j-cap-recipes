@@ -131,7 +131,7 @@ namespace :db do
 
   def postgres_auth_options(config)
     command_options = ''
-    command_options += " -h #{config[:hostname]}" if config[:hostname].present?
+    command_options += " -h #{config[:host]}" if config[:host].present?
     command_options += " -U #{config[:username]}" if config[:username].present?
     command_options
   end
