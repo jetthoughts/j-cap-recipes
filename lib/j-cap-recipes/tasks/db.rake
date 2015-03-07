@@ -13,11 +13,7 @@ namespace :db do
     backup_file   = File.join(backup_dir, "#{database_name}_#{datestamp}.dump")
 
     #dump the backup and zip it up
-    dump_command  = "#{postgres_password(config)} pg_dump #{database_name} -w -F c"
-    dump_command += postgres_auth_options(config)
-    dump_command += " > #{backup_file}"
-
-    sh dump_command
+    sh dump_command(config, database_name, backup_file)
 
     latest_file_name = File.join(backup_dir, "#{database_name}_latest.dump")
     if File.exist? latest_file_name
@@ -89,6 +85,27 @@ namespace :db do
     @_keep_versions ||= ENV['ROTATE'].to_i
   end
 
+  def postgres_dump_command(config, database_name, backup_file)
+    result  = "#{db_password(config)} pg_dump #{database_name} -w -F c"
+    result += postgres_auth_options(config)
+    result + " > #{backup_file}"
+  end
+
+  def mysql_dump_command(config, database_name, backup_file)
+    result  = "mysqldump #{database_name} "
+    result += mysql_auth_options(config)
+    result + " > #{backup_file}"
+  end
+
+  def dump_command(config, database_name, backup_file)
+    case config[:adapter]
+    when /mysql/
+      mysql_dump_command(config, database_name, backup_file)
+    when 'postgresql', 'pg'
+      postgres_dump_command(config, database_name, backup_file)
+    end
+  end
+
   def postgres_password(config)
     "PGPASSWORD='#{config[:password]}'" if config[:password].present?
   end
@@ -97,6 +114,14 @@ namespace :db do
     command_options = ''
     command_options += " -h #{config[:hostname]}" if config[:hostname].present?
     command_options += " -U #{config[:username]}" if config[:username].present?
+    command_options
+  end
+
+  def mysql_auth_options(config)
+    command_options = ''
+    command_options += "--password='#{config[:password]}'" if config[:password].present?
+    command_options += " -h #{config[:hostname]}" if config[:hostname].present?
+    command_options += " -u #{config[:username]}" if config[:username].present?
     command_options
   end
 
