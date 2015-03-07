@@ -33,13 +33,13 @@ namespace :db do
     execute_task!('db:drop')
     execute_task!('db:create')
 
-    restore_command = "#{postgres_password(config)} pg_restore -d #{database_name} -F c -w #{backup_file}"
-    restore_command += postgres_auth_options(config)
-    restore_command += ' -O -c'
-    sh "#{restore_command} || echo 'done'"
+    command = db_restore_command(config, database_name, backup_file)
+    sh "#{command} || echo 'done'"
   end
 
   task :kill_postgres_connections => :environment do
+    config = ActiveRecord::Base.connection_config
+    next if config[:adapter] != "postgresql"
     db_name = ActiveRecord::Base.connection.current_database
     pid_column_name = if ActiveRecord::Base.connection.send(:postgresql_version) > 90200
       'pid'
@@ -86,7 +86,7 @@ namespace :db do
   end
 
   def postgres_dump_command(config, database_name, backup_file)
-    result  = "#{db_password(config)} pg_dump #{database_name} -w -F c"
+    result  = "#{postgres_password(config)} pg_dump #{database_name} -w -F c"
     result += postgres_auth_options(config)
     result + " > #{backup_file}"
   end
@@ -104,6 +104,25 @@ namespace :db do
     when 'postgresql', 'pg'
       postgres_dump_command(config, database_name, backup_file)
     end
+  end
+
+  def db_restore_command(config, database_name, backup_file)
+    case config[:adapter]
+    when /mysql/
+      mysql_restore_command(config, database_name, backup_file)
+    when 'postgresql', 'pg'
+      postgres_restore_command(config, database_name, backup_file)
+    end
+  end
+
+  def postgres_restore_command(config, database_name, backup_file)
+    result = "#{postgres_password(config)} pg_restore -d #{database_name} -F c -w #{backup_file}"
+    result += postgres_auth_options(config)
+    result + ' -O -c'
+  end
+
+  def mysql_restore_command(config, database_name, backup_file)
+    "mysql #{database_name} #{mysql_auth_options(config)} < #{backup_file}"
   end
 
   def postgres_password(config)
