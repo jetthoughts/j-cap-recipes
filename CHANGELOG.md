@@ -1,5 +1,9 @@
 ## Changelog
 
+## 0.0.18
+
+* Support mysql database for backup
+
 ## 0.0.17
 
 * Added ability to define what the env to download or upload for database backups. If it differs from the rails env.

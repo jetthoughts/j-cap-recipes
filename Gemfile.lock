@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    j-cap-recipes (0.0.17)
+    j-cap-recipes (0.0.18)
 
 GEM
   remote: https://rubygems.org/
